@@ -6,15 +6,14 @@ $ranstr = $_GET["echostr"];
 $token = "dot";
 
 $a = array($token,$timestamp,$nonce);
-$signature = sha1(implode(sort($a, SORT_STRING)));
+sort($a, SORT_STRING);
+$signature = sha1(implode($a));
 if($signature == $sig){
 	echo $ranstr;
 }
 else{
 	echo $ranstr."\n";
 	echo "fuckyou\n";
-	echo $signature;
-	echo "\n";
 }
 
 $fp = fopen("log.html", "a+");
