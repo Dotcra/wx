@@ -7,8 +7,6 @@ $token = "dot";
 
 $a = array($token,$timestamp,$nonce);
 $signature = sha1(implode(sort($a, SORT_STRING)));
-echo $token;
-echo "\n";
 if($signature == $sig){
 	echo $ranstr;
 }
