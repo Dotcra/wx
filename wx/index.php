@@ -3,11 +3,12 @@ $sig = $_GET["signature"];
 $timestamp = $_GET["timestamp"];
 $nonce = $_GET["nonce"];
 $ranstr = $_GET["echostr"];
-
 $token = "dot";
 
 $a = array($token,$timestamp,$nonce);
-$signature = sha1(implode(sort($a)));
+$signature = sha1(implode(sort($a, SORT_STRING)));
+echo $token;
+echo "\n";
 if($signature == $sig){
 	echo $ranstr;
 }
