@@ -10,7 +10,6 @@ $a = array($token,$timestamp,$nonce);
 $signature = sha1(implode(sort($a)));
 if($signature == $sig){
 	echo $ranstr;
-	echo "\n";
 }
 else{
 	echo $ranstr."\n";
