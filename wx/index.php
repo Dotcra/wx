@@ -7,8 +7,14 @@ $ranstr = $_GET["echostr"];
 $token = "sag78315j8kqb1z";
 
 $a = array($token,$timestamp,$nonce);
-if(sha1(implode(sort($a))) == $sig)
+$signature = sha1(implode(sort($a)));
+if($signature == $sig){
 	echo $ranstr;
-else
+	echo "\n";
+}
+else{
 	echo $ranstr."\n";
-	echo "fuckyou";
+	echo "fuckyou\n";
+	echo $signature;
+	echo "\n";
+}
