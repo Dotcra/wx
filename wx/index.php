@@ -16,3 +16,8 @@ else{
 	echo $signature;
 	echo "\n";
 }
+
+$fp = fopen("log.html", "a+");
+fwrite($fp, $sig ." ". $timestamp ." ". $nonce ." ". $ranstr ." ". $token. "\n");
+fwrite($fp, $signature ."\n");
+fclose($fp);
