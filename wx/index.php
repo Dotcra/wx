@@ -10,4 +10,5 @@ $a = array($token,$timestamp,$nonce);
 if(sha1(implode(sort($a))) == $sig)
 	echo $ranstr;
 else
+	echo $ranstr."\n";
 	echo "fuckyou";
