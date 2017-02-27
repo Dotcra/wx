@@ -1,11 +1,6 @@
 <?php
-class p{
-	function f(){
-		echo "fuck\n";
-		$this->f();
-	}
+require_once 'autoload.php';
 
-}
+$a = new greet($_GET["timestamp"], $_GET["nonce"], $_GET["signature"], $_GET["echostr"]);
 
-$jess = new p;
-$jess->f();
+$b = new talk;
