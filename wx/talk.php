@@ -157,6 +157,7 @@ class talk{
 			"我靠" => "我靠",
 			"叫什么" => "我叫dodo",
 			"几岁" => "我才一个多月呢",
+			"多大" => "我才一个多月呢",
 			"妈是谁" => "妈妈是琼琼",
 			"谁是妈" => "琼琼",
 			"谁是你妈" => "琼琼",
@@ -173,8 +174,8 @@ class talk{
 			"谁是爷" => "爷爷是老侯",
 			"谁是你爷" => "老侯",
 		);
-		foreach($kw as $k){
-			if(strpos($this->hesaid, $kw["$k"])){
+		foreach($kw as $k => $v){
+			if(strpos("x".$this->hesaid, $k)){
 				$this->isay = $kw["$k"];
 				break;
 			}

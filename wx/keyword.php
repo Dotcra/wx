@@ -23,18 +23,10 @@ $kw = array(
 	"谁是爷" => "爷爷是老侯",
 	"谁是你爷" => "老侯",
 );
-$kw = array(
-	"a" => "我靠",
-	"b" => "我叫dodo"
-);
 
 		foreach($kw as $k => $v){
-			if(!strpos($hesaid, $k)){
-				echo $k;
+			if(strpos("x".$hesaid, $k)){
 				echo $v;
+				break;
 			}
-			else
-				echo "none";
 		}
-echo "<br>";
-strpos("什么人", "什么");
