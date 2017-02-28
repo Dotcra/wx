@@ -6,7 +6,14 @@ echo "<br>";
 $kw = array(
 	"我靠" => "我靠",
 	"叫什么" => "我叫dodo",
-	"几岁" => "我才一个多月呢",
+	"几岁" => array(
+		"我才一个多月呢",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+	),
 	"妈是谁" => "妈妈是琼琼",
 	"谁是妈" => "琼琼",
 	"谁是你妈" => "琼琼",
@@ -26,7 +33,11 @@ $kw = array(
 
 		foreach($kw as $k => $v){
 			if(strpos("x".$hesaid, $k)){
-				echo $v;
+				if(is_array($v)) {
+					shuffle($v);
+					echo $v[0];
+				}
+				else echo $v;
 				break;
 			}
 		}
