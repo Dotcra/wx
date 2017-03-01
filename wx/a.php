@@ -1,6 +1,11 @@
 <?php
+/*
+*@ todo: access_token, subscribe
+*
+ */
 require_once 'autoload.php';
 
 new greet;
 
-$b = new talk;
+new talk;
+

@@ -12,16 +12,15 @@ class robot{
 	function resp($hesaid){
 		$url = "http://www.tuling123.com/openapi/api";
 		$key = "816d8ddc83c34069855fa7aec3160573";
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, "key=$key&info=$hesaid");
-		$json = curl_exec($ch);
-		curl_close($ch);
+		$a = array(
+			"url" => $url,
+			"header" => 0,
+			"post" => 1,
+			"postfields" => "key=$key&info=$hesaid",
+		);
+		$data = curl::go($a);
 
-		$a = json_decode($json, true);
+		$a = json_decode($data, true);
 		return $a["text"];
 
 	}
