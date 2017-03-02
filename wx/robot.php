@@ -1,4 +1,7 @@
 <?php
+/**
+ * @api
+ */
 class robot{
 	private $a;
 	private $b;
