@@ -11,7 +11,6 @@ class menu{
 	private $ass;
 	private $url;
 	private $curl = array();
-	private $data;
 	private $c;
 	function __construct(){
 		$this->ass = (new ass)->cache();
@@ -21,8 +20,21 @@ class menu{
 		$this->url = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=$this->ass";
 	}
 
-	function create(){
-		$this->data = '
+	function set(){
+		$abtn = array(
+			"type" => "click", # clik, view...
+			"name" => "fuck",
+			"key" => "fuck", # do NOT need in type view
+			"sub_button" => [ ],
+		);
+		$theveryvalue = array($abtn);
+		$abtn["sub_button"] = $theveryvalue;
+		$theveryvalue = array($abtn);
+		$justonearr= array("button" => $theveryvalue);
+		echo json_encode($justonearr);
+		echo "\n";
+
+		$data = '
  {
      "button":[
      {
@@ -35,8 +47,8 @@ class menu{
            "sub_button":[
            {
                "type":"view",
-               "name":"搜索",
-               "url":"http://www.soso.com/"
+               "name":"dot",
+               "url":"https://dotcra.com"
             },
             {
                "type":"view",
@@ -50,13 +62,9 @@ class menu{
             }]
        }]
  }';
-	}
-
-	function set(){
 		$this->url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=$this->ass";
 		$this->curl["post"] = "1";
-		$this->create();
-		$this->curl["postfields"] = $this->data;
+		$this->curl["postfields"] = $data;
 	}
 
 	function del(){
@@ -70,5 +78,17 @@ class menu{
 
 }
 
-(new menu)->set();
+#(new menu)->set();
 
+$abtn = array(
+	"type" => "click", # clik, view...
+	"name" => "fuck",
+	"key" => "fuck", # do NOT need in type view
+	"sub_button" => [ ],
+);
+$theveryvalue = array($abtn);
+$abtn["sub_button"] = $theveryvalue;
+$theveryvalue = array($abtn);
+$justonearr= array("button" => $theveryvalue);
+echo json_encode($justonearr);
+echo "\n";
