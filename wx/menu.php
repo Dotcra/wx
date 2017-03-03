@@ -27,41 +27,27 @@ class menu{
 			"key" => "fuck", # do NOT need in type view
 			"sub_button" => [ ],
 		);
-		$theveryvalue = array($abtn);
-		$abtn["sub_button"] = $theveryvalue;
-		$theveryvalue = array($abtn);
-		$justonearr= array("button" => $theveryvalue);
-		echo json_encode($justonearr);
-		echo "\n";
+		$abtn1 = array(
+			"type" => "click", # clik, view...
+			"name" => "fuck",
+			"key" => "fuck", # do NOT need in type view
+			"sub_button" => [ ],
+		);
+		$abtn2 = array(
+			"type" => "click", # clik, view...
+			"name" => "fuck",
+			"key" => "fuck", # do NOT need in type view
+			"sub_button" => [ ],
+		);
+		$abtn3 = array(
+			"type" => "click", # clik, view...
+			"name" => "fuck",
+			"key" => "fuck", # do NOT need in type view
+			"sub_button" => [ ],
+		);
 
-		$data = '
- {
-     "button":[
-     {
-          "type":"click",
-          "name":"今日歌曲",
-          "key":"V1001_TODAY_MUSIC"
-      },
-      {
-           "name":"菜单",
-           "sub_button":[
-           {
-               "type":"view",
-               "name":"dot",
-               "url":"https://dotcra.com"
-            },
-            {
-               "type":"view",
-               "name":"视频",
-               "url":"http://v.qq.com/"
-            },
-            {
-               "type":"click",
-               "name":"赞一下我们",
-               "key":"V1001_GOOD"
-            }]
-       }]
- }';
+		$allbtn = array($abtn1, $abtn2, $abtn3);
+		$data = json_encode(array("button" => $allbtn));
 		$this->url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=$this->ass";
 		$this->curl["post"] = "1";
 		$this->curl["postfields"] = $data;
@@ -78,17 +64,4 @@ class menu{
 
 }
 
-#(new menu)->set();
-
-$abtn = array(
-	"type" => "click", # clik, view...
-	"name" => "fuck",
-	"key" => "fuck", # do NOT need in type view
-	"sub_button" => [ ],
-);
-$theveryvalue = array($abtn);
-$abtn["sub_button"] = $theveryvalue;
-$theveryvalue = array($abtn);
-$justonearr= array("button" => $theveryvalue);
-echo json_encode($justonearr);
-echo "\n";
+(new menu)->set();

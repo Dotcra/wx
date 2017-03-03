@@ -1,8 +1,8 @@
 <?php
 class logtofile{
-	function __construct($content, $this=""){
-		$fp = fopen("log.html","a+");
-		fwrite($fp,$this);
+	function __construct($content, $tarfile="log.html", $hint=""){
+		$fp = fopen($tarfile,"a+");
+		fwrite($fp,$hint);
 		fwrite($fp,"\n");
 		fwrite($fp,$content);
 		fwrite($fp,"<br />");
