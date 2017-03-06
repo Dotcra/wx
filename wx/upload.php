@@ -9,35 +9,32 @@ class upload{
 	private $a;
 	private $b;
 	private $c;
-	function __construct(array $file, $target){
+	function __construct($target="."){
 		date_default_timezone_set('Asia/Shanghai');
 		$most=5;
-		$max=10000;
+		$max=1000000;
 		$type = array(
 			"image/jpeg",
 			"image/png",
 			"image/gif",
 		);
 
+		if(count($_FILES) > $most) exit("too many files");
+
 		foreach($_FILES as $k => $v){
-			echo $k;
-			echo PHP_EOL;
-			print_r($_FILES[$k]);
-			echo PHP_EOL;
-			//print_r($_FILES);
-			echo $v["type"];
-			echo PHP_EOL;
-			echo date("ymdHis");
-			echo PHP_EOL;
+			// check name validation
 
+			if(!in_array($v["type"], $type)) exit("wtf");
 
-			if(in_array($v["size"]) > 2000) exit("too big!");
+			if($v["size"] > $max) exit("too big!");
 
-			echo is_uploaded_file($v["name"]);
 			if(is_uploaded_file($v["tmp_name"])){
-				if(!move_uploaded_file($v["tmp_name"], $target.date("ymdHis").$v["name"])) echo "move failed";
+				// rename, trim space, specials
+				$v["name"] = ;
+				if(!move_uploaded_file($v["tmp_name"], $target."/".date("ymdHis")."-".$v["name"])) echo "move failed";
 			}
 			else echo "upload failed\n";
+			
 		}
 
 
@@ -50,4 +47,4 @@ class upload{
 	}
 }
 
-new upload($_FILES, "123");
+new upload();
