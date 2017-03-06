@@ -3,9 +3,11 @@
 *@ todo: access_token, subscribe
 *
  */
-require_once 'autoload.php';
-
-new greet;
-
-new talk;
-
+?>
+<html>
+<form action=upload.php method="POST" enctype="multipart/form-data">
+<input type="file" name="myfile1">
+<input type="file" name="myfile2">
+<input type="submit">
+</form>
+</html>
