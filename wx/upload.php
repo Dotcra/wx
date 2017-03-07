@@ -6,9 +6,6 @@
  */
 
 class upload{
-	private $a;
-	private $b;
-	private $c;
 	function __construct($target="."){
 		date_default_timezone_set('Asia/Shanghai');
 		$most=5;
@@ -19,18 +16,27 @@ class upload{
 			"image/gif",
 		);
 
+		// is there too many files?
 		if(count($_FILES) > $most) exit("too many files");
 
 		foreach($_FILES as $k => $v){
 			// check name validation
+			// turn space into _, trim specials
+			echo $v["type"];
 
-			if(!in_array($v["type"], $type)) exit("wtf");
+			// is it a image?
+			if(in_array($v["type"], $type)){
+				// really a image? check here
+			}
+			else exit("wtf");
 
+			// is it too big?
 			if($v["size"] > $max) exit("too big!");
 
+			// move it to target path
 			if(is_uploaded_file($v["tmp_name"])){
 				// rename, trim space, specials
-				$v["name"] = ;
+				$v["name"] = str_replace(' ','_',$v["name"]);
 				if(!move_uploaded_file($v["tmp_name"], $target."/".date("ymdHis")."-".$v["name"])) echo "move failed";
 			}
 			else echo "upload failed\n";
@@ -43,8 +49,6 @@ class upload{
 	function __destruct(){
 	}
 
-	function f(){
-	}
 }
 
 new upload();

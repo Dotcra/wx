@@ -6,9 +6,6 @@
  */
 
 class login{
-	private $a;
-	private $b;
-	private $c;
 	function __construct(){
 	}
 
