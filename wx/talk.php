@@ -51,7 +51,7 @@ class talk{
 		case "text":
 			#$this->isay = keyword::match($this->hesaid);
 			if( $this->match["isay"] == null ) 
-				$this->isay = robot::resp($this->hesaid);
+				$this->isay = api::talk($this->hesaid);
 			else
 				$this->isay = $this->match["isay"];
 			echo sprintf($this->mydata, $this->he, $this->me, time(), "text", $this->isay);

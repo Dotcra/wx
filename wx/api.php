@@ -2,17 +2,15 @@
 /**
  * @api
  */
-class robot{
-	private $a;
-	private $b;
-	private $c;
+class api{
 	function __construct(){
 	}
 
 	function __destruct(){
 	}
 
-	function resp($hesaid){
+	// talk robot
+	function talk($hesaid){
 		$url = "http://www.tuling123.com/openapi/api";
 		$key = "816d8ddc83c34069855fa7aec3160573";
 		$a = array(
@@ -27,7 +25,10 @@ class robot{
 		return $a["text"];
 
 	}
+
+	// speech synthesis
+	function ss(){
+
+	}
 }
 
-#$a = robot::resp($_GET['s']);
-#echo $a;

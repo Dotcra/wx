@@ -19,10 +19,11 @@ class upload{
 		// is there too many files?
 		if(count($_FILES) > $most) exit("too many files");
 
+			var_dump($_FILES);
 		foreach($_FILES as $k => $v){
 			// check name validation
 			// turn space into _, trim specials
-			echo $v["type"];
+			var_dump($v);
 
 			// is it a image?
 			if(in_array($v["type"], $type)){
