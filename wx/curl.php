@@ -19,10 +19,12 @@ class curl{
 	 */
 	static function go(array $opts){
 		$opts = array_change_key_case($opts, CASE_UPPER);
-		//var_dump($opts);
+
 		$ch = curl_init();
+
 		# return the transfer as a string by default
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
 		foreach($opts as $k => $v){
 			//if($k == "POSTFIELDS" && is_array($v)){
 			//	foreach($v as $kk => $vv){
@@ -32,8 +34,11 @@ class curl{
 			//print_r($opts[$k]);
 			curl_setopt($ch, constant("CURLOPT_$k"), $v);
 		}
+
 		$data = curl_exec($ch);
+
 		curl_close($ch);
+
 		return $data;
 	}
 }
