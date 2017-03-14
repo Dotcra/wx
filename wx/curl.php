@@ -22,7 +22,7 @@ class curl{
 		//var_dump($opts);
 		$ch = curl_init();
 		# return the transfer as a string by default
-		//curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		foreach($opts as $k => $v){
 			//if($k == "POSTFIELDS" && is_array($v)){
 			//	foreach($v as $kk => $vv){
