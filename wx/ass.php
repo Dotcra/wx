@@ -20,22 +20,22 @@ class ass{
 	function __destruct(){
 	}
 
-	function cache(){
-		# if $ass can not find from file, memc or db, $this->gen();
-		return $this->gen();
-	}
-
 	function gen(){
-		$a = array(
-			"url" => "$this->url",
-		);
-		$ass = curl::go($a);
-		$ass = json_decode($ass, true);
-		$ass = $ass["access_token"];
 		// now store $ass
-		return $ass;
+		if (time() - @filectime('wx_token') > 7180){
+			$a = array(
+				"url" => "$this->url",
+			);
+			$ass = curl::go($a);
+			$ass = json_decode($ass, true);
+			$ass = $ass["access_token"];
+			file_put_contents('wx_token', $ass);
+			return $ass;
+		}
+
+		return file_get_contents('wx_token');
 	}
 
 }
 
-#echo (new ass)->gen();
+(new ass)->gen();

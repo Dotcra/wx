@@ -3,7 +3,7 @@ class talk{
 		private $rawdata;
 		private $postdata;
 		private $me;
-		private $he;
+		private $him;
 		private $histype;
 		private $mytype;
 		private $hesaid;
@@ -17,7 +17,7 @@ class talk{
 		$this->rawdata = file_get_contents("php://input");
 		$this->postdata = simplexml_load_string($this->rawdata,"SimpleXMLElement", LIBXML_NOCDATA);
 		$this->me = $this->postdata->ToUserName;
-		$this->he = $this->postdata->FromUserName;
+		$this->him = $this->postdata->FromUserName;
 		$this->histype = $this->postdata->MsgType;
 
 		switch($this->histype){
@@ -25,9 +25,11 @@ class talk{
 			$this->hesaid = $this->postdata->Content;
 			$this->match = keyword::match($this->hesaid);
 			break;
-		case "image":
-			break;
 		case "voice":
+			$this->hesaid = api::sr();
+			$this->match = keyword::match($this->hesaid);
+			break;
+		case "image":
 			break;
 		case "video":
 			break;
@@ -49,27 +51,34 @@ class talk{
 		$this->mydata = xml::toxml($this->mytype);
 		switch($this->mytype){
 		case "text":
-			#$this->isay = keyword::match($this->hesaid);
 			if( $this->match["isay"] == null ) 
 				$this->isay = api::talk($this->hesaid);
 			else
 				$this->isay = $this->match["isay"];
-			echo sprintf($this->mydata, $this->he, $this->me, time(), "text", $this->isay);
-			break;
-		case "image":
-			echo sprintf($this->mydata, $this->he, $this->me, time(), "image", $this->mediaid);
+			echo sprintf($this->mydata, $this->him, $this->me, time(), "text", $this->isay);
 			break;
 		case "voice":
-			echo sprintf($this->mydata, $this->he, $this->me, time(), "voice", $this->mediaid);
+			if( $this->match["isay"] == null ) 
+				$this->isay = api::talk($this->hesaid);
+			else
+				$this->isay = $this->match["isay"];
+			api::ss($this->isay); // speech synthesis and save to isay.mp3
+			// create media isay.mp3 to wechat server and get mediaid
+
+			// $this->mediaid = 
+			echo sprintf($this->mydata, $this->him, $this->me, time(), "voice", $this->mediaid);
+			break;
+		case "image":
+			echo sprintf($this->mydata, $this->him, $this->me, time(), "image", $this->mediaid);
 			break;
 		case "video":
-			echo sprintf($this->mydata, $this->he, $this->me, time(), "video", $this->mediaid, $this->title, $this->desc);
+			echo sprintf($this->mydata, $this->him, $this->me, time(), "video", $this->mediaid, $this->title, $this->desc);
 			break;
 		case "music":
-			echo sprintf($this->mydata, $this->he, $this->me, time(), "music", $this->title, $this->desc, $this->url, $this->hqurl, $this->mediaid);
+			echo sprintf($this->mydata, $this->him, $this->me, time(), "music", $this->title, $this->desc, $this->url, $this->hqurl, $this->mediaid);
 			break;
 		case "news":
-			echo sprintf($this->mydata, $this->he, $this->me, time(), "news", $this->count, $this->title, $this->desc, $this->picurl, $this->url);
+			echo sprintf($this->mydata, $this->him, $this->me, time(), "news", $this->count, $this->title, $this->desc, $this->picurl, $this->url);
 			break;
 		}
 
