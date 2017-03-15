@@ -1,6 +1,6 @@
 <?php
 class keyword{
-	function match($hesaid){
+	static function match($hesaid){
 		$kw = array(
 			"我靠" => array(
 				"我靠",

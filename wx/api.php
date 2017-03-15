@@ -29,9 +29,8 @@ class api{
 
 	}
 
-	// microsoft cognitive speech synthesis
-	static function ss($isay, $lang = 'zh-TW'){
-		// get access token
+	// get microsoft cognitive access token
+	private function msass(){
 		$url = "https://api.cognitive.microsoft.com/sts/v1.0/issueToken";
 		$opts = array(
 			"url" => $url,
@@ -43,9 +42,38 @@ class api{
 		);
 		// if older than 600 sec, renew it
 		if (time() - @filectime('cog_token') > 590) file_put_contents('cog_token', curl::go($opts));
-		$token = file_get_contents('cog_token');
+		return file_get_contents('cog_token');
 
-		// now request
+	}
+
+	// microsoft cognitive speech recognize
+	function sr(){
+		$token = $this->msass();
+
+		$url = "https://speech.platform.bing.com/recognize";
+		$appid = "D4D52672-91D7-4C74-8AD8-42B1D98141A5";
+		$instanceid = $requestid = "b2c95ede-97eb-4c88-81e4-80f32d6aee54";
+		$urll = "$url?scenarios=catsearch&appid=$appid&locale=zh-TW&device.os=wp7&version=3.0&format=json&requestid=$requestid&instanceid=$instanceid";
+		$opts = array(
+			"url" => $urll,
+			"returntransfer" => 0,
+			"post" => 1,
+			"header" => 1,
+			//"infile" => '@isay.mp3',
+			"httpheader" => array(
+				'Content-Type: audio/wav; samplerate=16000',
+				'Authorization: ' . 'Bearer ' . $token,
+			),
+			"postfields" => "@isay.mp3",
+
+		);
+		curl::go($opts);
+
+
+	}
+	function ss($isay, $lang = 'zh-TW'){
+		$token = $this->msass();
+
 		$url = "https://speech.platform.bing.com/synthesize";
 		$v = array(
 			"zh-TW" => "Yating, Apollo",
@@ -114,4 +142,5 @@ class api{
 	}
 }
 
-api::ss('又是一年3.15，一些欺诈消费者的手段将会被曝光。在前几天提速降费的政策出台后，很多资深网友表示并不看好。最典型的一个事件就是，宽带网速明明提高了，上网速度为何慢了呢?', 'zh-TW');
+//(new api)->ss('又是一年3.15，一些欺诈消费者的手段将会被曝光。在前几天提速降费的政策出台后，很多资深网友表示并不看好。最典型的一个事件就是，宽带网速明明提高了，上网速度为何慢了呢?', 'zh-TW');
+(new api)->sr();

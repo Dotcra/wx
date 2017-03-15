@@ -6,7 +6,7 @@ class xml{
 	function __destruct(){
 	}
 
-	function toxml($mytype){
+	static function toxml($mytype){
 		$a = array(
 			"xmlstart" => "<xml>",
 			"tousername" => "<ToUserName><![CDATA[%s]]></ToUserName>",
