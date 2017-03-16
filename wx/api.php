@@ -12,13 +12,12 @@ class api{
 	function __destruct(){
 	}
 
-	// talk robot
+	// talking robot
 	static function talk($hesaid){
 		$url = "http://www.tuling123.com/openapi/api";
 		$key = key::ass('tuling123');
 		$opts = array(
 			"url" => $url,
-			"header" => 0,
 			"post" => 1,
 			"postfields" => "key=$key&info=$hesaid",
 		);
@@ -42,18 +41,19 @@ class api{
 			"returntransfer" => 0,
 			"post" => 1,
 			"header" => 1,
-			//"infile" => '@isay.mp3',
+			'infile' => '@isay.mp3',
+			'infilesize' => 180514,
 			"httpheader" => array(
-				'Content-Type: audio/wav; samplerate=16000',
+				'Content-Type: audio/mp3; samplerate=16000',
 				'Authorization: ' . 'Bearer ' . $token,
 			),
-			"postfields" => "@isay.mp3",
+			//'postfields' => array(new CURLFile('isay.mp3')),
 
 		);
-		curl::go($opts);
-
-
+		return curl::go($opts);
 	}
+
+	// microsoft cognitive speech synthesis
 	static function ss($isay, $lang = 'zh-CN'){
 		$token = key::ass('ms');
 		$url = "https://speech.platform.bing.com/synthesize";
@@ -101,6 +101,7 @@ class api{
 		
 	}
 
+	// voice verification
 	static function vv($num=""){
 		if (empty($num)) exit("give me a number\n");
 
@@ -124,6 +125,7 @@ class api{
 	}
 }
 
-api::ss('可以群聊，仅耗少量流量，适合大部分智能手机', 'zh-TW');
+//api::ss('可以群聊，仅耗少量流量，适合大部分智能手机', 'zh-TW');
+//echo api::sr();
 //echo api::vv(1234125);
-//echo api::talk('你叫什么');
+//echo api::talk('你睡觉');

@@ -10,7 +10,7 @@ class curl{
 	 * $opts = array(
 	 * "url" => "https://api.url",
 	 * "returntransfer" => 0,
-	 * "header" => 0,
+	 * "header" => 1,
 	 * "post" => 1, // TRUE to do a regular HTTP POST. This POST is the normal application/x-www-form-urlencoded kind, most commonly used by HTML forms.
 	 * "postfields" => "key=816ddc83c3406960573&info=hi", // Passing an array to CURLOPT_POSTFIELDS will encode the data as multipart/form-data, while passing a URL-encoded string will encode the data as application/x-www-form-urlencoded.
 	 * );
