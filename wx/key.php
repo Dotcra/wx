@@ -4,7 +4,7 @@
  * @version
  * @todo
  */
-//require_once 'autoload.php';
+// require_once 'autoload.php';
 
 class key{
 	static function ass($vendor){
@@ -32,7 +32,7 @@ class key{
 			$appsecret = $arr[$vendor]['key'];
 			$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
 			// if older than 7200 sec, renew it
-			$keyf = $keyd.'/wx_ass';
+			$keyf = $keyd.'/'.$vendor.'_ass';
 			if (time() - @filectime($keyf) > 7180){
 				$a = array(
 					"url" => $url,
@@ -49,7 +49,7 @@ class key{
 	}
 }
 
-//key::ass('wx');
+// key::ass('wxbeta');
 
 $a = array(
 	'ms' => '',

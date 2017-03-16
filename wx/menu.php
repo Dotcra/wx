@@ -13,7 +13,7 @@ class menu{
 	private $curl = array();
 	private $c;
 	function __construct(){
-		$this->ass = (new ass)->cache();
+		$this->ass = key::ass('wxbeta');
 	}
 
 	function get(){

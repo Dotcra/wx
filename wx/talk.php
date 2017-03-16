@@ -49,6 +49,7 @@ class talk{
 
 	function __destruct(){
 		$this->mytype = $this->match["type"];
+		$this->mytype = 'voice';
 		$this->mydata = xml::toxml($this->mytype);
 		switch($this->mytype){
 		case "text":
@@ -66,7 +67,7 @@ class talk{
 			api::ss($this->isay); // speech synthesis and save to isay.mp3
 			// create media isay.mp3 to wechat server and get mediaid
 
-			// $this->mediaid = 
+			$this->mediaid = 'hZQI8wGopupLHeSHqu-bpftkl9z5BQJGUWI9GATtUb4dFrAUYTO9D5S7cuHvpq4D';
 			echo sprintf($this->mydata, $this->him, $this->me, time(), "voice", $this->mediaid);
 			break;
 		case "image":
