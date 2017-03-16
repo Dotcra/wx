@@ -4,13 +4,12 @@
  * @version
  * @todo
  */
+//require_once 'autoload.php';
 
 class key{
 	static function ass($vendor){
-		$arr = json_decode(file_get_contents('key.json'), 1);
-		// if (is_array($arr[$vendor]))
-		// 	$key = $arr[$vendor][0];
-		// else $key = $arr[$vendor];
+		$keyd = __DIR__.'/sec';
+		$arr = json_decode(file_get_contents("$keyd/key.json"), 1);
 		$vend = substr($vendor, 0, 2); // so that 'wx' and 'wxbeta' can share case 'wx':
 
 		switch($vend){
@@ -25,26 +24,52 @@ class key{
 				),
 			);
 			// if older than 600 sec, renew it
-			if (time() - @filectime('cog_ass') > 590) file_put_contents('cog_ass', curl::go($opts));
-			return file_get_contents('cog_ass');
+			$keyf = $keyd.'/cog_ass';
+			if (time() - @filectime($keyf) > 590) file_put_contents($keyf, curl::go($opts));
+			return file_get_contents($keyf);
 		case 'wx':
-			$appid = $arr[$vendor][1];
-			$appsecret = $arr[$vendor][0];
-			$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appid&secret=$this->appsecret";
+			$appid = $arr[$vendor]['id'];
+			$appsecret = $arr[$vendor]['key'];
+			$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
 			// if older than 7200 sec, renew it
-			if (time() - @filectime('wx_ass') > 7180){
+			$keyf = $keyd.'/wx_ass';
+			if (time() - @filectime($keyf) > 7180){
 				$a = array(
 					"url" => $url,
 				);
-				$ass = curl::go($a);
-				$ass = json_decode($ass, 1);
+				$ass = json_decode(curl::go($a), 1);
 				$ass = $ass["access_token"];
-				file_put_contents('wx_ass', $ass);
+				file_put_contents($keyf, $ass);
 				return $ass;
 			}
-			return file_get_contents('wx_ass');
+			return file_get_contents($keyf);
 		default:
 			return $arr[$vendor];
 		}
 	}
 }
+
+//key::ass('wx');
+
+$a = array(
+	'ms' => '',
+	'tuling123' => '',
+	'miaodiyun' => array(
+		'key' => '',
+		'id' => ''
+	),
+	'wx' => array(
+		'key' => '',
+		'id' => '',
+		'token' => '',
+	),
+	'wxbeta' => array(
+		'key' => '',
+		'id' => '',
+		'token' => '',
+	),
+
+	
+);
+
+// echo json_encode($a);
