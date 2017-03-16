@@ -54,7 +54,7 @@ class api{
 
 
 	}
-	static function ss($isay, $lang = 'zh-TW'){
+	static function ss($isay, $lang = 'zh-CN'){
 		$token = key::ass('ms');
 		$url = "https://speech.platform.bing.com/synthesize";
 		$v = array(
@@ -85,7 +85,7 @@ class api{
 		$opts = array(
 			"url" => $url,
 			"post" => 1,
-			"header" => 1, // fuck
+			//"header" => 1, // fuck
 			"httpheader" => array(
 				'Content-Type: application/ssml+xml',
 				"X-Microsoft-OutputFormat: riff-16khz-16bit-mono-pcm",

@@ -4,7 +4,7 @@
  * @version
  * @todo
  */
-require_once 'autoload.php';
+//require_once 'autoload.php';
 
 class media{
 	function __construct(){
@@ -45,11 +45,10 @@ class media{
 			'postfields' => array(new CURLFile($file)),
 		);
 
-		echo curl::go($a);
-		//$arr = json_decode(curl::go($a), 1);
-		//return $arr['media_id'];
+		$arr = json_decode(curl::go($a), 1);
+		return $arr['media_id'];
 
 	}
 }
 
-echo media::addtemp('isay.mp3');
+//echo media::addtemp('isay.mp3');
