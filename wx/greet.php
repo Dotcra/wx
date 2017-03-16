@@ -9,10 +9,13 @@ class greet{
 	private $nonce;
 	private $sig0;
 	private $str;
-	private $token = "kj5oJn8afut17";
+	private $token;
 
 	function __construct(){
 		if(isset($_GET["echostr"])){
+			$arr = json_decode(file_get_contents('key.json'), 1);
+			$this->token = $arr['wx'][2];
+			//$this->token = $arr['wxbeta'][2];
 			$this->timestamp = $_GET["timestamp"];
 			$this->nonce = $_GET["nonce"];
 			$this->sig0 = $_GET["signature"];

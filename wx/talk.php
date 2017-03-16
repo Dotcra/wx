@@ -26,8 +26,9 @@ class talk{
 			$this->match = keyword::match($this->hesaid);
 			break;
 		case "voice":
-			$this->hesaid = api::sr();
+			//$this->hesaid = api::sr();
 			$this->match = keyword::match($this->hesaid);
+			$this->match['isay'] = '发啥语音阿';
 			break;
 		case "image":
 			break;

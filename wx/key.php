@@ -7,11 +7,10 @@
 
 class key{
 	static function ass($vendor){
-		$a = file_get_contents('key.json');
-		$arr = json_decode($a, 1);
-		if (is_array($arr[$vendor]))
-			$key = $arr[$vendor][0];
-		else $key = $arr[$vendor];
+		$arr = json_decode(file_get_contents('key.json'), 1);
+		// if (is_array($arr[$vendor]))
+		// 	$key = $arr[$vendor][0];
+		// else $key = $arr[$vendor];
 		$vend = substr($vendor, 0, 2); // so that 'wx' and 'wxbeta' can share case 'wx':
 
 		switch($vend){

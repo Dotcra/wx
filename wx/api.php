@@ -30,7 +30,7 @@ class api{
 	}
 
 	// microsoft cognitive speech recognize
-	function sr(){
+	static function sr(){
 		$token = key::ass('ms');
 
 		$url = "https://speech.platform.bing.com/recognize";
@@ -54,7 +54,7 @@ class api{
 
 
 	}
-	function ss($isay, $lang = 'zh-TW'){
+	static function ss($isay, $lang = 'zh-TW'){
 		$token = key::ass('ms');
 		$url = "https://speech.platform.bing.com/synthesize";
 		$v = array(
@@ -124,4 +124,4 @@ class api{
 	}
 }
 
-(new api)->ss('可以群聊，仅耗少量流量，适合大部分智能手机', 'zh-TW');
+api::ss('可以群聊，仅耗少量流量，适合大部分智能手机', 'zh-TW');
