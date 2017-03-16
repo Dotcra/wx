@@ -15,7 +15,7 @@ class api{
 	// talk robot
 	static function talk($hesaid){
 		$url = "http://www.tuling123.com/openapi/api";
-		$key = "816d8ddc83c34069855fa7aec3160573";
+		$key = key::ass('tuling123');
 		$opts = array(
 			"url" => $url,
 			"header" => 0,
@@ -29,26 +29,9 @@ class api{
 
 	}
 
-	// get microsoft cognitive access token
-	private function msass(){
-		$url = "https://api.cognitive.microsoft.com/sts/v1.0/issueToken";
-		$opts = array(
-			"url" => $url,
-			"post" => 1,
-			"httpheader" => array(
-				'Ocp-Apim-Subscription-Key: 34c42cb28351484a84d11c018d47a4b9',
-				'Content-length: 0',
-			),
-		);
-		// if older than 600 sec, renew it
-		if (time() - @filectime('cog_token') > 590) file_put_contents('cog_token', curl::go($opts));
-		return file_get_contents('cog_token');
-
-	}
-
 	// microsoft cognitive speech recognize
 	function sr(){
-		$token = $this->msass();
+		$token = key::ass('ms');
 
 		$url = "https://speech.platform.bing.com/recognize";
 		$appid = "D4D52672-91D7-4C74-8AD8-42B1D98141A5";
@@ -72,8 +55,7 @@ class api{
 
 	}
 	function ss($isay, $lang = 'zh-TW'){
-		$token = $this->msass();
-
+		$token = key::ass('ms');
 		$url = "https://speech.platform.bing.com/synthesize";
 		$v = array(
 			"zh-TW" => "Yating, Apollo",
@@ -128,8 +110,9 @@ class api{
 		date_default_timezone_set("Asia/Shanghai");
 		$code = rand(999, 9999);
 		$url = "https://api.miaodiyun.com/20150822/call/voiceCode";
-		$sid = "f9572cc6ae5347f1a84c0041256af0c2";
-		$key = "f69e2bd3eab446518e98b92ecdd6fc64";
+		$arr = key::ass('miaodiyun');
+		$sid = $arr[1];
+		$key = $arr[0];
 		$time = date("YmdHis");
 		$sig = md5($sid.$key.$time);
 		$opts = array(
@@ -137,10 +120,8 @@ class api{
 			"post" => 1,
 			"postfields" => "accountSid=$sid&verifyCode=$code&called=$num&playTimes=3&timestamp=$time&sig=$sig",
 		);
-		var_dump($opts);
 		return $data = curl::go($opts);
 	}
 }
 
-//(new api)->ss('又是一年3.15，一些欺诈消费者的手段将会被曝光。在前几天提速降费的政策出台后，很多资深网友表示并不看好。最典型的一个事件就是，宽带网速明明提高了，上网速度为何慢了呢?', 'zh-TW');
-(new api)->sr();
+(new api)->ss('可以群聊，仅耗少量流量，适合大部分智能手机', 'zh-TW');
