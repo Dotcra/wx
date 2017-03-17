@@ -12,7 +12,7 @@ class talk{
 
 	function __construct(){
 		$rawdata = file_get_contents("php://input"); // get raw post data
-		//new logtofile($rawdata); // log xml msg from wx server to log.html, only for testing
+		new logtofile($rawdata); // log xml msg from wx server to log.html, only for testing
 		$postdata = simplexml_load_string($rawdata,"SimpleXMLElement", LIBXML_NOCDATA);
 		$this->me = $postdata->ToUserName;
 		$this->him = $postdata->FromUserName;
