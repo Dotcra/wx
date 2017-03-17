@@ -1,6 +1,6 @@
 <?php
-class keyword{
-	static function match($hesaid){
+class match{
+	static function kw($hesaid){
 		$kw = array(
 			"我靠" => array(
 				"我靠",
@@ -76,7 +76,7 @@ class keyword{
 					# otherwise send text
 					# set mytype to text and set text type params 
 					$a = array("type" => "text", "isay" => "");
-					if(is_array($v)){
+					if(is_array($v)){ // same question, random answer
 						shuffle($v);
 						$a["isay"] = $v[0];
 					}
@@ -87,7 +87,24 @@ class keyword{
 			}
 
 		}
-		return $a = array("type" => "text", "isay" => "");
+		return array("type" => "text", "isay" => "");
+	}
+
+	static function event($type){
+		switch($type){
+		case 'subscribe':
+			return array("type" => "text", "isay" => "你来了啊，嘿嘿！");
+		case 'unsubscribe':
+			;
+		case 'SCAN':
+			;
+		case 'LOCATION':
+			;
+		case 'CLICK':
+			;
+		case 'VIEW':
+			;
+		}
 	}
 }
 

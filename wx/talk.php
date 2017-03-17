@@ -5,54 +5,54 @@ class talk{
 		private $histype;
 		private $mytype;
 		private $hesaid;
-		private $match = array();
-		private $mydata;
 		private $isay;
-		private $eventtype;
-		private $mediaid;
+		private $mydata;
+		//private $event;
+		//private $mediaid;
 
 	function __construct(){
-		$rawdata = file_get_contents("php://input");
-		new logtofile($rawdata);
+		$rawdata = file_get_contents("php://input"); // get raw post data
+		//new logtofile($rawdata); // log xml msg from wx server to log.html, only for testing
 		$postdata = simplexml_load_string($rawdata,"SimpleXMLElement", LIBXML_NOCDATA);
 		$this->me = $postdata->ToUserName;
 		$this->him = $postdata->FromUserName;
 		$this->histype = $postdata->MsgType;
 
 		switch($this->histype){
-		case "text":
+		case 'text':
 			$this->hesaid = $postdata->Content;
+			$match = match::kw($this->hesaid); // match keyword to decide response type and content
 			break;
-		case "voice":
+		case 'voice':
 			//$this->hesaid = api::sr();
 			$this->hesaid = $postdata->Recognition;
+			$match = match::kw($this->hesaid); // match keyword to decide response type and content
 			break;
-		case "image":
+		case 'image':
 			break;
-		case "video":
+		case 'video':
 			break;
-		case "shortvideo":
+		case 'shortvideo':
 			break;
-		case "location":
+		case 'location':
 			break;
-		case "link":
+		case 'link':
 			break;
-		case "event":
-			$this->eventtype= $postdata->Event;
-			$this->event();
+		case 'event':
+			$event = $postdata->Event;
+			$match = match::event($event);
 			break;
 		}
 
-		$this->match = keyword::match($this->hesaid); // match keyword to decide response content and type
-		$this->mytype = $this->match["type"];
+		$this->mytype = $match["type"];
 		$this->mydata = xml::toxml($this->mytype); // assemble xml according to response type
 
-		if( $this->match["isay"] == null )
+		if( $match["isay"] == null )
 			$this->isay = api::talk($this->hesaid); // if no keyword match, AI answers
 		else
-			$this->isay = $this->match["isay"];
+			$this->isay = $match["isay"];
 
-		$this->mytype = 'voice'; // for test
+		$this->mytype = 'voice'; // for testing
 	}
 
 	function __destruct(){
@@ -64,17 +64,17 @@ class talk{
 		case "voice":
 			echo 'success'; // avoid wx server 3 times retry
 			api::ss($this->isay, 'zh-TW'); // speech synthesis and save to isay.mp3
-			$this->mediaid = media::addtemp(); // add isay.mp3 to wx server and get mediaid
-			echo sprintf($this->mydata, $this->him, $this->me, time(), "voice", $this->mediaid);
+			$mediaid = media::addtemp(); // add isay.mp3 to wx server and get mediaid
+			echo sprintf($this->mydata, $this->him, $this->me, time(), "voice", $mediaid);
 			break;
 		case "image":
-			echo sprintf($this->mydata, $this->him, $this->me, time(), "image", $this->mediaid);
+			echo sprintf($this->mydata, $this->him, $this->me, time(), "image", $mediaid);
 			break;
 		case "video":
-			echo sprintf($this->mydata, $this->him, $this->me, time(), "video", $this->mediaid, $this->title, $this->desc);
+			echo sprintf($this->mydata, $this->him, $this->me, time(), "video", $mediaid, $this->title, $this->desc);
 			break;
 		case "music":
-			echo sprintf($this->mydata, $this->him, $this->me, time(), "music", $this->title, $this->desc, $this->url, $this->hqurl, $this->mediaid);
+			echo sprintf($this->mydata, $this->him, $this->me, time(), "music", $this->title, $this->desc, $this->url, $this->hqurl, $mediaid);
 			break;
 		case "news":
 			echo sprintf($this->mydata, $this->him, $this->me, time(), "news", $this->count, $this->title, $this->desc, $this->picurl, $this->url);
@@ -82,22 +82,5 @@ class talk{
 		}
 
 		
-	}
-
-	function event(){
-		switch($this->eventtype){
-		case "subscribe":
-		;
-		case "unsubscribe":
-		;
-		case "SCAN":
-		;
-		case "LOCATION":
-		;
-		case "CLICK":
-		;
-		case "VIEW":
-		;
-		}
 	}
 }
