@@ -1,7 +1,5 @@
 <?php
 class talk{
-		private $rawdata;
-		private $postdata;
 		private $me;
 		private $him;
 		private $histype;
@@ -14,23 +12,20 @@ class talk{
 		private $mediaid;
 
 	function __construct(){
-		$this->rawdata = file_get_contents("php://input");
-		new logtofile($this->rawdata);
-		$this->postdata = simplexml_load_string($this->rawdata,"SimpleXMLElement", LIBXML_NOCDATA);
-		$this->me = $this->postdata->ToUserName;
-		$this->him = $this->postdata->FromUserName;
-		$this->histype = $this->postdata->MsgType;
+		$rawdata = file_get_contents("php://input");
+		new logtofile($rawdata);
+		$postdata = simplexml_load_string($rawdata,"SimpleXMLElement", LIBXML_NOCDATA);
+		$this->me = $postdata->ToUserName;
+		$this->him = $postdata->FromUserName;
+		$this->histype = $postdata->MsgType;
 
 		switch($this->histype){
 		case "text":
-			$this->hesaid = $this->postdata->Content;
-			$this->match = keyword::match($this->hesaid);
+			$this->hesaid = $postdata->Content;
 			break;
 		case "voice":
 			//$this->hesaid = api::sr();
-			$this->hesaid = $this->postdata->Recognition;
-			$this->match = keyword::match($this->hesaid);
-			$this->match['isay'] = $this->hesaid;
+			$this->hesaid = $postdata->Recognition;
 			break;
 		case "image":
 			break;
@@ -43,30 +38,31 @@ class talk{
 		case "link":
 			break;
 		case "event":
-			$this->eventtype= $this->postdata->Event;
+			$this->eventtype= $postdata->Event;
 			$this->event();
 			break;
 		}
+
+		$this->match = keyword::match($this->hesaid); // match keyword to decide response content and type
+		$this->mytype = $this->match["type"];
+		$this->mydata = xml::toxml($this->mytype); // assemble xml according to response type
+
+		if( $this->match["isay"] == null )
+			$this->isay = api::talk($this->hesaid); // if no keyword match, AI answers
+		else
+			$this->isay = $this->match["isay"];
+
+		$this->mytype = 'voice'; // for test
 	}
 
 	function __destruct(){
-		$this->mytype = $this->match["type"];
-		$this->mytype = 'voice';
-		$this->mydata = xml::toxml($this->mytype);
-
 		switch($this->mytype){
 		case "text":
-			if( $this->match["isay"] == null ) 
-				$this->isay = api::talk($this->hesaid);
-			else
-				$this->isay = $this->match["isay"];
+			echo ''; // avoid wx server 3 times retry
 			echo sprintf($this->mydata, $this->him, $this->me, time(), "text", $this->isay);
 			break;
 		case "voice":
-			if( $this->match["isay"] == null ) 
-				$this->isay = api::talk($this->hesaid);
-			else
-				$this->isay = $this->match["isay"];
+			echo 'success'; // avoid wx server 3 times retry
 			api::ss($this->isay, 'zh-TW'); // speech synthesis and save to isay.mp3
 			$this->mediaid = media::addtemp(); // add isay.mp3 to wx server and get mediaid
 			echo sprintf($this->mydata, $this->him, $this->me, time(), "voice", $this->mediaid);
