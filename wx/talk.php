@@ -18,6 +18,13 @@ class talk{
 		$this->him = $postdata->FromUserName;
 		$this->histype = $postdata->MsgType;
 
+		switch($this->me){
+		case 'gh_ba323b1bbbd4': // for beta
+			break;
+		case 'gh_d0d389ba3f5c': // for dodo
+			break;
+		}
+
 		switch($this->histype){
 		case 'text':
 			$this->hesaid = $postdata->Content;
@@ -45,6 +52,7 @@ class talk{
 		}
 
 		$this->mytype = $match["type"];
+		$this->mytype = 'voice'; // for testing
 		$this->mydata = xml::toxml($this->mytype); // assemble xml according to response type
 
 		if( $match["isay"] == null )
@@ -52,7 +60,6 @@ class talk{
 		else
 			$this->isay = $match["isay"];
 
-		$this->mytype = 'voice'; // for testing
 	}
 
 	function __destruct(){
@@ -62,7 +69,7 @@ class talk{
 			echo sprintf($this->mydata, $this->him, $this->me, time(), "text", $this->isay);
 			break;
 		case "voice":
-			echo 'success'; // avoid wx server 3 times retry
+			//echo 'success'; // avoid wx server 3 times retry
 			api::ss($this->isay, 'zh-TW'); // speech synthesis and save to isay.mp3
 			$mediaid = media::addtemp(); // add isay.mp3 to wx server and get mediaid
 			echo sprintf($this->mydata, $this->him, $this->me, time(), "voice", $mediaid);

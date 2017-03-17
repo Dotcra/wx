@@ -51,4 +51,4 @@ class media{
 	}
 }
 
-//echo media::addtemp('isay.mp3');
+//echo media::addtemp();
