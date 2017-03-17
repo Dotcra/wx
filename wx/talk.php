@@ -26,7 +26,7 @@ class talk{
 			$this->match = keyword::match($this->hesaid);
 			break;
 		case "voice":
-			//$this->hesaid = api::sr();
+			$this->hesaid = api::sr();
 			$this->match = keyword::match($this->hesaid);
 			$this->match['isay'] = '发啥语音阿';
 			break;
@@ -65,7 +65,7 @@ class talk{
 			else
 				$this->isay = $this->match["isay"];
 			api::ss($this->isay, 'zh-TW'); // speech synthesis and save to isay.mp3
-			$this->mediaid = media::addtemp('isay.mp3'); // add isay.mp3 to wx server and get mediaid
+			$this->mediaid = media::addtemp(); // add isay.mp3 to wx server and get mediaid
 			echo sprintf($this->mydata, $this->him, $this->me, time(), "voice", $this->mediaid);
 			break;
 		case "image":

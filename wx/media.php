@@ -13,7 +13,7 @@ class media{
 	function __destruct(){
 	}
 
-	static function addtemp($file = 'zira.mp3'){
+	static function addtemp($file = 'isay.mp3'){
 		switch(strrchr($file, '.')){
 		case '.mp3':
 		case '.amr':

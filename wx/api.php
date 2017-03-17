@@ -35,19 +35,21 @@ class api{
 		$url = "https://speech.platform.bing.com/recognize";
 		$appid = "D4D52672-91D7-4C74-8AD8-42B1D98141A5";
 		$instanceid = $requestid = "b2c95ede-97eb-4c88-81e4-80f32d6aee54";
-		$urll = "$url?scenarios=catsearch&appid=$appid&locale=zh-TW&device.os=wp7&version=3.0&format=json&requestid=$requestid&instanceid=$instanceid";
+		$urll = "$url?scenarios=ulm&appid=$appid&locale=zh-CN&device.os=Windows7&version=3.0&format=json&requestid=$requestid&instanceid=$instanceid";
 		$opts = array(
 			"url" => $urll,
-			"returntransfer" => 0,
+			"returntransfer" => 1,
 			"post" => 1,
-			"header" => 1,
-			'infile' => '@isay.mp3',
-			'infilesize' => 180514,
+			//"header" => 1,
+			//'infile' => '@isay.mp3',
+			//'infilesize' => 180514,
 			"httpheader" => array(
-				'Content-Type: audio/mp3; samplerate=16000',
+				'Content-Type: audio/mp3; codec="audio/pcm"; samplerate=16000',
 				'Authorization: ' . 'Bearer ' . $token,
+				//'content-length: 180514',
 			),
-			//'postfields' => array(new CURLFile('isay.mp3')),
+			//postfields => array(new CURLFile('isay.mp3')),
+			'postfields' => file_get_contents('isay.mp3'),
 
 		);
 		return curl::go($opts);
@@ -126,6 +128,6 @@ class api{
 }
 
 //api::ss('可以群聊，仅耗少量流量，适合大部分智能手机', 'zh-TW');
-//echo api::sr();
+echo api::sr();
 //echo api::vv(1234125);
 //echo api::talk('你睡觉');
