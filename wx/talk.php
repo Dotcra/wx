@@ -15,6 +15,7 @@ class talk{
 
 	function __construct(){
 		$this->rawdata = file_get_contents("php://input");
+		new logtofile($this->rawdata);
 		$this->postdata = simplexml_load_string($this->rawdata,"SimpleXMLElement", LIBXML_NOCDATA);
 		$this->me = $this->postdata->ToUserName;
 		$this->him = $this->postdata->FromUserName;
@@ -26,9 +27,10 @@ class talk{
 			$this->match = keyword::match($this->hesaid);
 			break;
 		case "voice":
-			$this->hesaid = api::sr();
+			//$this->hesaid = api::sr();
+			$this->hesaid = $this->postdata->Recognition;
 			$this->match = keyword::match($this->hesaid);
-			$this->match['isay'] = '发啥语音阿';
+			$this->match['isay'] = $this->hesaid;
 			break;
 		case "image":
 			break;
@@ -51,6 +53,7 @@ class talk{
 		$this->mytype = $this->match["type"];
 		$this->mytype = 'voice';
 		$this->mydata = xml::toxml($this->mytype);
+
 		switch($this->mytype){
 		case "text":
 			if( $this->match["isay"] == null ) 

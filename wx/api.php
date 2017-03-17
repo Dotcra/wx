@@ -3,7 +3,7 @@
  * @api
  */
 
-require_once 'autoload.php';
+//require_once 'autoload.php';
 
 class api{
 	function __construct(){
@@ -29,7 +29,7 @@ class api{
 	}
 
 	// microsoft cognitive speech recognize
-	static function sr(){
+	static function sr($hesaid = 'hesaid.mp3'){
 		$token = key::ass('ms');
 
 		$url = "https://speech.platform.bing.com/recognize";
@@ -41,15 +41,15 @@ class api{
 			"returntransfer" => 1,
 			"post" => 1,
 			//"header" => 1,
-			//'infile' => '@isay.mp3',
+			//'infile' => '@hesaid.mp3',
 			//'infilesize' => 180514,
 			"httpheader" => array(
 				'Content-Type: audio/mp3; codec="audio/pcm"; samplerate=16000',
 				'Authorization: ' . 'Bearer ' . $token,
 				//'content-length: 180514',
 			),
-			//postfields => array(new CURLFile('isay.mp3')),
-			'postfields' => file_get_contents('isay.mp3'),
+			//postfields => array(new CURLFile('hesaid.mp3')),
+			'postfields' => file_get_contents($hesaid),
 
 		);
 		return curl::go($opts);
@@ -128,6 +128,6 @@ class api{
 }
 
 //api::ss('可以群聊，仅耗少量流量，适合大部分智能手机', 'zh-TW');
-echo api::sr();
+//echo api::sr();
 //echo api::vv(1234125);
 //echo api::talk('你睡觉');
