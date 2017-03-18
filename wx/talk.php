@@ -52,14 +52,13 @@ class talk{
 		}
 
 		$this->mytype = $match["type"];
-		$this->mytype = 'voice'; // for testing
+		$this->mytype = 'text'; // for testing
 		$this->mydata = xml::toxml($this->mytype); // assemble xml according to response type
 
-		if( $match["isay"] == null )
+		if( ! isset($match['isay']) )
 			$this->isay = api::talk($this->hesaid); // if no keyword match, AI answers
 		else
 			$this->isay = $match["isay"];
-
 	}
 
 	function __destruct(){

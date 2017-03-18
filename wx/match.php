@@ -45,49 +45,45 @@ class match{
 				case "照片":
 					# send some pics
 					# set mytype to image and set image type params 
-					$a = array("type" => "image", "mediaid" => "");
-					break;
+					return  array("type" => "image", "mediaid" => "");
 				case "相片":
 					# send some pics
 					# set mytype to image and set image type params 
-					$a = array("type" => "image", "mediaid" => "");
-					break;
+					return array("type" => "image", "mediaid" => "");
 				case "视频":
 					# send some videos
 					# set mytype to video and set video type params 
-					$a = array("type" => "video", "mediaid" => "", "title" => "", "desc" => "");
-					break;
+					return array("type" => "video", "mediaid" => "", "title" => "", "desc" => "");
 				case "声音":
 					# send some voices
 					# set mytype to voice and set voice type params 
-					$a = array("type" => "voice", "mediaid" => "");
-					break;
+					return array("type" => "voice", "mediaid" => "");
 				case "歌":
 					# send some musics
 					# set mytype to music and set music type params 
-					$a = array("type" => "music", "mediaid" => "", "title" => "", "desc" => "", "url" => "","hqurl" => "");
-					break;
+					return array("type" => "music", "mediaid" => "", "title" => "", "desc" => "", "url" => "","hqurl" => "");
 				case "动态":
 					# send some news
 					# set mytype to news and set news type params 
-					$a = array("type" => "music", "count" => "", "title" => "", "desc" => "", "url" => "","picurl" => "");
-					break;
+					return array("type" => "music", "count" => "", "title" => "", "desc" => "", "url" => "","picurl" => "");
 				default:
 					# otherwise send text
 					# set mytype to text and set text type params 
-					$a = array("type" => "text", "isay" => "");
+					//$a = array("type" => "text", "isay" => "");
 					if(is_array($v)){ // same question, random answer
 						shuffle($v);
 						$a["isay"] = $v[0];
 					}
 					else $a["isay"] = $v;
 				}
-				return $a;
-				break;
+				break; // if strpos matches, foreach no need to run anymore
 			}
 
 		}
-		return array("type" => "text", "isay" => "");
+		$t = array('vocie', 'text');
+		shuffle($t);
+		$a['type'] = $t[0];
+		return $a;
 	}
 
 	static function event($type){
@@ -108,6 +104,4 @@ class match{
 	}
 }
 
-#$a = keyword::match($_GET["s"]);
-#print_r($a);
-#echo $a["type"];
+//var_dump(match::kw('你是傻逼'));
