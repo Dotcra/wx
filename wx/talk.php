@@ -52,7 +52,7 @@ class talk{
 		}
 
 		$this->mytype = $match["type"];
-		$this->mytype = 'text'; // for testing
+		//$this->mytype = 'text'; // for testing
 		$this->mydata = xml::toxml($this->mytype); // assemble xml according to response type
 
 		if( ! isset($match['isay']) )

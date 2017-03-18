@@ -80,7 +80,7 @@ class match{
 			}
 
 		}
-		$t = array('vocie', 'text');
+		$t = array('voice', 'text');
 		shuffle($t);
 		$a['type'] = $t[0];
 		return $a;
