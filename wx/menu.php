@@ -21,29 +21,66 @@ class menu{
 	}
 
 	function set(){
-		$abtn = array(
-			"type" => "click", # clik, view...
-			"name" => "fuck",
+		$abtn3a = array(
+			//"type" => "click",
+			//"type" => "view",
+			"type" => "scancode_push",
+			//"type" => "scancode_waitmsg",
+			//"type" => "pic_sysphoto",
+			//"type" => "pic_photo_or_album",
+			//"type" => "pic_weixin",
+			//"type" => "location_select",
+			//"type" => "media_id",
+			//"type" => "view_limited",
+			"name" => "scanpush",
+			"key" => "fuck", # do NOT need in type view
+			//"url" => "http://a.com", # do NOT need in type click
+			"sub_button" => [ ],
+		);
+		$abtn3b = array(
+			"type" => "location_select",
+			"name" => "location",
+			"key" => "fuck", # do NOT need in type view
+			"sub_button" => [ ],
+		);
+		$abtn3c = array(
+			"type" => "media_id",
+			"name" => "mediaid",
+			"key" => "fuck", # do NOT need in type view
+			"media_id" => "JlljdHwGYLJ3NFM3SIDNffueazEcjnsmPmEva36JBo8bLChCykv1NAULAhgnyrkq",
+			"sub_button" => [ ],
+		);
+		$abtn3d = array(
+			"type" => "view_limited",
+			"name" => "limit",
+			"media_id" => "JlljdHwGYLJ3NFM3SIDNffueazEcjnsmPmEva36JBo8bLChCykv1NAULAhgnyrkq",
+			"key" => "fuck", # do NOT need in type view
+			"sub_button" => [ ],
+		);
+		$abtn3e = array(
+			"type" => "pic_weixin",
+			"name" => "wx",
 			"key" => "fuck", # do NOT need in type view
 			"sub_button" => [ ],
 		);
 		$abtn1 = array(
-			"type" => "click", # clik, view...
-			"name" => "fuck",
-			"key" => "fuck", # do NOT need in type view
+			"type" => "view", # clik, view...
+			"name" => "DOTCRA",
+			"url" => "http://dotcra.com", # do NOT need in type view
 			"sub_button" => [ ],
 		);
 		$abtn2 = array(
-			"type" => "click", # clik, view...
-			"name" => "fuck",
+			"type" => "view", # clik, view...
+			"name" => "ITOVE",
+			"url" => "http://itove.com", # do NOT need in type view
 			"key" => "fuck", # do NOT need in type view
 			"sub_button" => [ ],
 		);
 		$abtn3 = array(
-			"type" => "click", # clik, view...
-			"name" => "fuck",
+			//"type" => "click", # clik, view...
+			"name" => "subs",
 			"key" => "fuck", # do NOT need in type view
-			"sub_button" => [ ],
+			"sub_button" => [$abtn3a, $abtn3b],
 		);
 
 		$allbtn = array($abtn1, $abtn2, $abtn3);
@@ -51,6 +88,8 @@ class menu{
 		$this->url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=$this->ass";
 		$this->curl["post"] = "1";
 		$this->curl["postfields"] = $data;
+		//var_dump($allbtn);
+		//echo $data;
 	}
 
 	function del(){
@@ -64,4 +103,7 @@ class menu{
 
 }
 
-(new menu)->set();
+$a = new menu;
+$a->set();
+//$a->get();
+//$a->del();

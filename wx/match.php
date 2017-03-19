@@ -100,6 +100,17 @@ class match{
 			;
 		case 'VIEW':
 			;
+		case 'scancode_push':
+			;
+		case 'scancode_waitmsg':
+			;
+		case 'pic_sysphoto':
+			;
+		case 'pic_photo_or_album':
+			;
+		case 'pic_weixin':
+			;
+		case 'location_select':
 		}
 	}
 }
