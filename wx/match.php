@@ -3,45 +3,7 @@ class match{
 	static function kw($hesaid, $him = ''){
 		$june='o7ZpNw8vINTY0Zpb0H7rw3_K3Bkg';
 		$june='oCuMTt-fq-EQv1-vRBYAn0sWtdvU';
-		$t = date('m').'月'.date('d').'日'.date('H').'点'.date('i').'分';
-		if ( $him == $june ) {
-			$arr = explode(' ', $hesaid, 2);
-			if (isset($arr[1])) $arr[1] = trim($arr[1]);
-			$a['type'] = 'text';
-			switch($arr[0]){
-			case '看看':
-				// query db
-				$a['type'] = 'text';
-				$a['isay'] = '';
-				//$mysql = new mysqli('localhost', 'root', 'dot', 'grind');
-				$mysql = new mysqli('qdm189698650.my3w.com', 'qdm189698650', '19860625', 'qdm189698650_db');
-				//if ($mysql->connect_error) exit($mysql->connect_error);
-
-				$limit = 5;
-				$sql = "select * from dodo order by `time`desc limit $limit";
-				$res = $mysql->query($sql);
-				for ($i=0;$i<$limit;$i++){
-					$b = $res->fetch_assoc();
-					$a['isay'] .= $b['time'].' '.$b['act'].' '.$b['comment']."\n";
-				}
-
-				$res->free();
-				$mysql->close();
-				return $a;
-			case '臭臭':
-			case '觉觉':
-			case '醒醒':
-			case '喂喂':
-			case '粉粉':
-			case '尿尿':
-				$mysql = new mysqli('qdm189698650.my3w.com', 'qdm189698650', '19860625', 'qdm189698650_db');
-				$sql = "INSERT INTO `dodo` (`id`, `act`, `comment`, `time`) VALUES (NULL, '$arr[0]', '', CURRENT_TIMESTAMP);";
-				$mysql->query($sql);
-				$mysql->close();
-				$a['isay'] = $t."\n".$arr[0].' '.$arr[1];
-				return $a;
-			}
-		}
+		if ( $him == $june ) return junecmd::go($hesaid);
 		$kw = array(
 			"我靠" => array(
 				"我靠",
