@@ -1,6 +1,27 @@
 <?php
 class match{
-	static function kw($hesaid){
+	static function kw($hesaid, $him = ''){
+		$june='o7ZpNw8vINTY0Zpb0H7rw3_K3Bkg';
+		$june='oCuMTt-fq-EQv1-vRBYAn0sWtdvU';
+		$t = date('y').'年'.date('m').'月'.date('d').'日'.date('H').'点'.date('i').'分';
+		if ( $him == $june ) {
+			$arr = explode(' ', $hesaid, 2);
+			if (isset($arr[1])) $arr[1] = trim($arr[1]);
+			$a['type'] = 'text';
+			switch($arr[0]){
+			case '看看':
+				// query db
+				return $a;
+			case '臭臭':
+			case '觉觉':
+			case '醒醒':
+			case '喂喂':
+			case '粉粉':
+			case '尿尿':
+				$a['isay'] = $t.' '.$arr[0].' '.$arr[1].'记住了';
+				return $a;
+			}
+		}
 		$kw = array(
 			"我靠" => array(
 				"我靠",

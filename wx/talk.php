@@ -28,12 +28,12 @@ class talk{
 		switch($this->histype){
 		case 'text':
 			$this->hesaid = $postdata->Content;
-			$match = match::kw($this->hesaid); // match keyword to decide response type and content
+			$match = match::kw($this->hesaid, $this->him); // match keyword to decide response type and content
 			break;
 		case 'voice':
 			//$this->hesaid = api::sr();
 			$this->hesaid = $postdata->Recognition;
-			$match = match::kw($this->hesaid); // match keyword to decide response type and content
+			$match = match::kw($this->hesaid, $this->him); // match keyword to decide response type and content
 			break;
 		case 'image':
 			break;
