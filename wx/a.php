@@ -5,22 +5,20 @@
  * @todo
  */
 
-//$a = new mysqli('qdm189698650.my3w.com', 'qdm189698650', '19860625', 'qdm189698650_db');
-$a = new mysqli('localhost', 'root', 'dot', 'grind');
-if ($a->connect_error) exit($a->connect_error);
-//else echo 'ok';
+$a['type'] = 'text';
+$a['isay'] = '';
+//$mysql = new mysqli('localhost', 'root', 'dot', 'grind');
+$mysql = new mysqli('qdm189698650.my3w.com', 'qdm189698650', '19860625', 'qdm189698650_db');
+if ($mysql->connect_error) exit($mysql->connect_error);
 
 $limit = 5;
 $sql = "select * from dodo order by `time` limit $limit";
-
-$res = $a->query($sql);
-$b = $res->fetch_all(MYSQLI_ASSOC);
-//$isay = '';
-foreach ( $b as $k => $v) {
-	$isay .= $v['time'].' '.$v['act'].' '.$v['comment']."\n";
+$res = $mysql->query($sql);
+for ($i=0;$i<$limit;$i++){
+	$b = $res->fetch_assoc();
+	$a['isay'] .= $b['time'].' '.$b['act'].' '.$b['comment']."\n";
 }
 
 $res->free();
-$a->close();
-
-echo $isay;
+$mysql->close();
+var_dump($a);
