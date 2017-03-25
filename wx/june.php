@@ -7,8 +7,8 @@
 
 //require_once 'autoload.php';
 
-class junecmd{
-	static function go($hesaid){
+class june{
+	static function cmd($hesaid){
 		$arr = explode(' ', $hesaid, 3);
 		$act = $arr[0];
 
@@ -23,11 +23,11 @@ class junecmd{
 		if (! isset($num)) $num = '';
 		if (! isset($comment)) $comment = '';
 
-		$o = new dodoact;
+		$dodo = new dodo;
 
 		switch($act){
 		case '看看':
-			return $o->check($num);
+			return $dodo->mem($num);
 		case '臭臭':
 		case '觉觉':
 		case '醒醒':
@@ -37,13 +37,15 @@ class junecmd{
 		case '尿尿':
 		case '哭哭':
 		case '笑笑':
-			return $o->add($act, $comment, $num);
+			return $dodo->act($act, $comment, $num);
 		case '问问':
 			return $a = array('type' => 'text', 'isay' => '看看 臭臭 觉觉 醒醒 喂喂 粉粉 尿尿 哭哭 笑笑 问问');
+		case '钱钱':
+			if(! isset($arr[1])) $dodo->bill(); else $dodo->cost();
 		}
 	}
 }
 
-//var_dump(junecmd::go('臭臭'));
-//var_dump(junecmd::go('看看'));
-//if(junecmd::go('sth')) echo 1; else echo 0;
+//var_dump(june::cmd('臭臭'));
+//var_dump(june::cmd('看看'));
+//if(june::cmd('sth')) echo 1; else echo 0;

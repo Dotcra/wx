@@ -4,8 +4,9 @@ class match{
 	static function kw($hesaid, $him = ''){
 		//$june='oCuMTt-fq-EQv1-vRBYAn0sWtdvU';
 		$june='o7ZpNw9szIY8cPB4568ui6PswBrw';
+		$june=1;
 		if ( $him == $june ){
-			$a = junecmd::go($hesaid);
+			$a = june::cmd($hesaid);
 			if ($a) return $a;
 		}
 		$kw = array(
@@ -123,4 +124,4 @@ class match{
 }
 
 //var_dump(match::kw('test 3 三分钟', 1));
-//var_dump(match::kw('看看 100', 1));
+//var_dump(match::kw('看看 10', 1));

@@ -4,7 +4,7 @@
  * @version
  * @todo
  */
-class dodoact{
+class dodo{
 	private $db;
 	private $arr = array('type' => 'text', 'isay' => '');
 	function __construct(){
@@ -16,7 +16,7 @@ class dodoact{
 	function __destruct(){
 		$this->db->close();
 	}
-	function add($act, $comment='', $min=0){
+	function act($act, $comment='', $min=0){
 		$time = time()-$min*60;
 		$date = date('m', $time).'月'.date('d', $time).'日'.date('H', $time).'点'.date('i', $time).'分';
 		//if($min == 0) $timestamp = 'CURRENT_TIMESTAMP'; else $timestamp = date('Y-m-d H:i:s', $time);
@@ -28,7 +28,7 @@ class dodoact{
 		return $this->arr;
 	}
 
-	function check($limit){
+	function mem($limit){
 		if (empty($limit)) $limit = 5;
 		$sql = "select * from dodo order by `time`desc limit $limit";
 		$res = $this->db->query($sql);
@@ -42,5 +42,11 @@ class dodoact{
 		}
 		$res->free();
 		return $this->arr;
+	}
+
+	function cost(){
+	}
+
+	function bill(){
 	}
 }
