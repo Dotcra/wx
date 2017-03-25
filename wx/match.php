@@ -1,9 +1,13 @@
 <?php
+//require_once 'autoload.php';
 class match{
 	static function kw($hesaid, $him = ''){
-		$june='o7ZpNw8vINTY0Zpb0H7rw3_K3Bkg';
-		$june='oCuMTt-fq-EQv1-vRBYAn0sWtdvU';
-		if ( $him == $june ) return junecmd::go($hesaid);
+		//$june='oCuMTt-fq-EQv1-vRBYAn0sWtdvU';
+		$june='o7ZpNw9szIY8cPB4568ui6PswBrw';
+		if ( $him == $june ){
+			$a = junecmd::go($hesaid);
+			if ($a) return $a;
+		}
 		$kw = array(
 			"我靠" => array(
 				"我靠",
@@ -118,4 +122,5 @@ class match{
 	}
 }
 
-//var_dump(match::kw('你是傻逼'));
+//var_dump(match::kw('test 3 三分钟', 1));
+//var_dump(match::kw('看看 100', 1));
