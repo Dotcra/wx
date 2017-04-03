@@ -53,7 +53,7 @@ class talk{
 
 		$this->mytype = $match["type"];
 		//$this->mytype = 'text'; // for testing
-		if ($this->me == 'gh_d0d389ba3f5c') $this->mytype = 'text'; // fucking 300
+		if ($this->me == 'gh_d0d389ba3f5c' && $this->mytype == 'voice') $this->mytype = 'text';
 		$this->mydata = xml::toxml($this->mytype); // assemble xml according to response type
 
 		if( ! isset($match['isay']) )

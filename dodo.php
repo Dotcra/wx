@@ -39,7 +39,8 @@ class dodo{
 			$row = $res->fetch_assoc();
 			$time = strtotime($row['time']);
 			$date = date('d', $time).'日'.date('H', $time).':'.date('i', $time);
-			$this->arr['isay'] .= $date.' '.$row['act'].' '.$row['comment']."\n";
+			$this->arr['isay'] .= $date.' '.$row['act'].' '.$row['comment'];
+			if($i < $limit-1) $this->arr['isay'] .= "\n";
 		}
 		$res->free();
 		return $this->arr;
