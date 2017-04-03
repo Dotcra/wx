@@ -10,8 +10,8 @@ class key{
 	static function ass($vendor){
 		$keyd = __DIR__.'/sec';
 		$arr = json_decode(file_get_contents("$keyd/key.json"), 1);
-		$vend = substr($vendor, 0, 2); // so that 'wx' and 'wxbeta' can share case 'wx':
 
+		$vend = substr($vendor, 0, 2); // so that 'wx' and 'wxbeta' can share case 'wx':
 		switch($vend){
 		case "ms":
 			$url = "https://api.cognitive.microsoft.com/sts/v1.0/issueToken";

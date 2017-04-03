@@ -8,7 +8,8 @@ class dodo{
 	private $db;
 	private $arr = array('type' => 'text', 'isay' => '');
 	function __construct(){
-		$this->db = new mysqli('qdm189698650.my3w.com', 'qdm189698650', '19860625', 'qdm189698650_db');
+		$arr = key::ass('alidb');
+		$this->db = new mysqli($arr['host'], $arr['user'], $arr['passwd'], $arr['db']);
 		//if ($this->db->connect_error) exit($mysql->connect_error);
 		$this->db->set_charset('utf8');
 		date_default_timezone_set('Asia/Shanghai');
