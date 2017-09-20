@@ -65,20 +65,20 @@ class menu{
 		);
 		$abtn1 = array(
 			"type" => "view", # clik, view...
-			"name" => "DOTCRA",
-			"url" => "http://dotcra.com", # do NOT need in type view
+			"name" => "auction",
+			"url" => "http://aws.dotcra.com", # do NOT need in type view
 			"sub_button" => [ ],
 		);
 		$abtn2 = array(
 			"type" => "view", # clik, view...
-			"name" => "ITOVE",
+			"name" => "swing",
 			"url" => "http://itove.com", # do NOT need in type view
 			"key" => "fuck", # do NOT need in type view
 			"sub_button" => [ ],
 		);
 		$abtn3 = array(
 			//"type" => "click", # clik, view...
-			"name" => "subs",
+			"name" => "usercenter",
 			"key" => "fuck", # do NOT need in type view
 			"sub_button" => [$abtn3a, $abtn3b],
 		);
